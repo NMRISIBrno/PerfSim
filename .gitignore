@@ -1,0 +1,4 @@
+*.asv
+data/output*
+data/input_FUS/config.json
+data/input_GBM/config.json
