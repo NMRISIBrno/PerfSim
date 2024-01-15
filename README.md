@@ -20,17 +20,14 @@ We have developed two phantoms for the simulations, both depicting an axial slic
 
 The first phantom contains a glioblastoma in brain, the second phantom contains a region with blood-brain barrier opened by focused ultrasound. You can find the input data for these studies in folders `data/input_GBM` and `data/input_FUS`, respectively.
 
-<img src="documentation/images/phantomGBM.png" height="250px" width="250px"/> 
-<img src="documentation/images/phantomFUS.png" height="250px" width="250px"/>
+<img src="documentation/images/phantomGBM.png" height="250px" width="250px"/> <img src="documentation/images/phantomFUS.png" height="250px" width="250px"/>
 
 ### Coil sensitivities
 We estimated sensitivities of three coils: 1-channel surface coil, 4-channel surface coil and 1-channel ring coil for FUS experiments. The geometry is compatible with the rat head phantom. For the 4-channel coil, we have sensitivities derived from real data and sensitivities derived from a phantom measurement (top row here).
 
-<img src="documentation/images/sensitivities.png" height="250px" width="250px" /> 
-<img src="documentation/images/sensitivitiesARR.png" height="250px" width="250px" />
+<img src="documentation/images/sensitivities.png" height="250px" width="250px" /> <img src="documentation/images/sensitivitiesARR.png" height="250px" width="250px" />
 <br />
-<img src="documentation/images/sensitivitiesSUC.png" height="250px" width="250px" /> 
-<img src="documentation/images/sensitivitiesFUS.png" height="250px" width="250px" />
+<img src="documentation/images/sensitivitiesSUC.png" height="250px" width="250px" /> <img src="documentation/images/sensitivitiesFUS.png" height="250px" width="250px" />
 
 <!---
 <img src="documentation/images/sensitivitiesARR.png" height="166px" width="166px" />
