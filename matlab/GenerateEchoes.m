@@ -15,6 +15,7 @@ function config = GenerateEchoes(config)
     numTEs = length(config.acquisition.TE);
     numOfRois = config.phantom.numOfRois;
     coilElements = size(Sensitivities,3);
+    config.acquisition.coilElements = coilElements;
     xSize = config.phantom.xSize;
     ySize = config.phantom.ySize;
     echoes = config.acquisition.timeAxis.N; 

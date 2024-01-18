@@ -65,7 +65,7 @@ switch config.acquisition.kSampling.method
         % parameters for cartesian sampling
         config.acquisition.kSampling.phEncSteps = 128;
         config.acquisition.kSampling.nSamples = 128;
-        config.acquisition.kSampling.repetitions = ceil(config.acquisition.timeAxis.N / config.acquisition.kSampling.phEncSteps);
+        config.acquisition.kSampling.repetitions = floor(config.acquisition.timeAxis.N / config.acquisition.kSampling.phEncSteps);
     case 'radial'
         % parameters for radial sampling (using NUFFT)
         config.acquisition.kSampling.angleIncrement = 2*pi/(1+sqrt(5));    % golden angle now

@@ -35,23 +35,29 @@ if precontrast
         phEncSteps = config.acquisition.kSampling.phEncSteps;
         frames = config.acquisition.kSampling.repetitions;
         nSamples = config.acquisition.kSampling.nSamples;
+        coilElements = config.acquisition.coilElements;
+        numOfEchoes = length(config.acquisition.TE);
 
         % Prepare data and vars
-        echoSignals = reshape(echoSignals, nSamples, phEncSteps, frames, []); 
-        coilElements = size(echoSignals,4);
-        imdata = zeros(phEncSteps, nSamples, frames, coilElements);
-        data = cell(1, frames);
+        totalSamples = phEncSteps*frames;
+        echoSignals = echoSignals(:,1:totalSamples,:,:);
+        echoSignals = reshape(echoSignals, nSamples, phEncSteps, frames, numOfEchoes, coilElements);
+        
+        imdata = zeros(phEncSteps, nSamples, frames, numOfEchoes, coilElements);
+        data = cell(1,frames*numOfEchoes);
 
         % Plot reconstructed data
         figure(1)
         for i = 1:frames
-            for j = 1:coilElements 
-                imdata(:,:,i,j) = abs(fftshift(ifft2(fftshift(echoSignals(:,:,i,j)')))).^2; % squared abs image
+            for j = 1:numOfEchoes
+                for k = 1:coilElements
+                    imdata(:,:,i,j,k) = abs(fftshift(ifft2(fftshift(echoSignals(:,:,i,j,k)')))).^2; % squared abs image
+                end
+                data{1,(i-1)*numOfEchoes+j} = sqrt(sum(imdata(:,:,i,j,:),5));
+                imagesc(data{1,(i-1)*numOfEchoes+j});
+                title(['Image: ', num2str((i-1)*numOfEchoes+j)])
+                pause(0.01);
             end
-            data{1,i} = sqrt(sum(imdata(:,:,i,:),4)); 
-            imagesc(data{1,i});
-            title(['Image: ', num2str(i)])
-            pause(0.01);
         end
 
         % Save to data1
@@ -77,13 +83,7 @@ end
 
 
 %% Get dynamic data and create data2 structure
-if precontrast
-    fn = folders(4).name;  % data2 filename
-    configPath = [path,fn,'/config.json'];
-else
-    fn = '';
-    configPath = [path,'/config.json'];
-end
+configPath = [path,'/Data2/config.json'];
 
 % Load config
 fid = fopen(configPath);    % opening the file
@@ -94,29 +94,35 @@ fclose(fid);
 config = jsondecode(str);
 
 % Load echoes
-load([path,fn,'/',config.outFile.echoes])
+load([path,'/Data2/SyntheticEchoes_cartesian'])
 
 % Extract some parameters from config
 phEncSteps = config.acquisition.kSampling.phEncSteps;
 frames = config.acquisition.kSampling.repetitions;
 nSamples = config.acquisition.kSampling.nSamples;
+coilElements = config.acquisition.coilElements;
+numOfEchoes = length(config.acquisition.TE);
 
 % Prepare data and vars
-echoSignals = reshape(echoSignals, nSamples, phEncSteps, frames, []);
-coilElements = size(echoSignals,4);
-imdata = zeros(phEncSteps, nSamples, frames, coilElements);
-data2 = cell(1,frames);
+totalSamples = phEncSteps*frames;
+echoSignals = echoSignals(:,1:totalSamples,:,:);
+echoSignals = reshape(echoSignals, nSamples, phEncSteps, frames, numOfEchoes, coilElements);
+
+imdata = zeros(phEncSteps, nSamples, frames, numOfEchoes, coilElements);
+data2 = cell(1,frames*numOfEchoes);
 
 % Plot reconstructed data
 figure(2)
 for i = 1:frames
-    for j = 1:coilElements
-        imdata(:,:,i,j) = abs(fftshift(ifft2(fftshift(echoSignals(:,:,i,j)')))).^2; % squared abs image
+    for j = 1:numOfEchoes
+        for k = 1:coilElements
+            imdata(:,:,i,j,k) = abs(fftshift(ifft2(fftshift(echoSignals(:,:,i,j,k)')))).^2; % squared abs image
+        end
+        data2{1,(i-1)*numOfEchoes+j} = sqrt(sum(imdata(:,:,i,j,:),5));
+        imagesc(data2{1,(i-1)*numOfEchoes+j});
+        title(['Image: ', num2str((i-1)*numOfEchoes+j)])
+        pause(0.01);
     end
-    data2{1,i} = sqrt(sum(imdata(:,:,i,:),4));
-    imagesc(data2{1,i});
-    title(['Image: ', num2str(i)])
-    pause(0.01);
 end
 
 % Save parameters for info structure
