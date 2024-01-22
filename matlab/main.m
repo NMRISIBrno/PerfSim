@@ -9,6 +9,15 @@ clc
 close all
 rng(0)
 
+% Set paths
+mainpath = mfilename('fullpath');
+mainpath = fileparts(mainpath);
+addpath(fullfile(mainpath,'PKmodels'))
+addpath(fullfile(mainpath,'PKmodels/AuxFunctions'))
+addpath(fullfile(mainpath,'ACQmodels'))
+addpath(fullfile(mainpath,'Utils'))
+
+%% Set filenames and global options
 % set folder paths
 config.workDir.input = '../data/input_FUS/';
 config.workDir.output = '../data/output_FUS/';
@@ -66,6 +75,7 @@ switch config.acquisition.kSampling.method
         config.acquisition.kSampling.phEncSteps = 128;
         config.acquisition.kSampling.nSamples = 128;
         config.acquisition.kSampling.repetitions = floor(config.acquisition.timeAxis.N / config.acquisition.kSampling.phEncSteps);
+        config = AdjustAcqLen(config); % adjust acquisition length
     case 'radial'
         % parameters for radial sampling (using NUFFT)
         config.acquisition.kSampling.angleIncrement = 2*pi/(1+sqrt(5));    % golden angle now
@@ -127,14 +137,6 @@ if precontrast == 1
 end
 
 %% RUN SIMULATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Set paths
-mainpath = mfilename('fullpath');
-mainpath = fileparts(mainpath);
-addpath(fullfile(mainpath,'PKmodels'))
-addpath(fullfile(mainpath,'PKmodels/AuxFunctions'))
-addpath(fullfile(mainpath,'ACQmodels'))
-addpath(fullfile(mainpath,'Utils'))
-
 % Save main dir
 mainDir  = config.workDir.output;
 config.outFile = [];
