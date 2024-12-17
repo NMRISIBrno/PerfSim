@@ -57,7 +57,7 @@ Usually, you also want to change the output data folder in `config.workDir.outpu
 ### Main settings
 Considering the main settings, you can switch on/off the simulation of `precontrast` / `dynamic` scans in these variables, or change the type of calibration scans in the `model` variable. Three types of calibrations were implemented - `vFA`, `vTR` and `IRLL`.
 
-Apart from that, k-space sampling can be selected in the `config.acquisition.kSampling.method` parameter - `cartesian`, `radial` and `rosettes` options were implemented. For the Cartesian and radial sampling, a simple reconstruction algorithm was also designed (can be turned on in the `reco` parameter). The reconstruction outputs a single file, suitable for subsequent perfusion analysis in our [PerfLab](http://perflab.cerit-sc.cz/) software. 
+Apart from that, k-space sampling can be selected in the `config.acquisition.kSampling.method` parameter - `cartesian`, `radial` and `rosettes` options were implemented. For the Cartesian and radial sampling, a simple reconstruction algorithm was also designed (can be turned on in the `reco` parameter). The reconstruction outputs a single file, suitable for subsequent perfusion analysis in our [PerfLab](https://perflab.isibrno.cz/) software. 
 
 For more detailed description, see the [Simulation settings](documentation/configuration.md).
 

@@ -118,5 +118,5 @@ The `IRLL` calibration is defined by parameters:
 The reconstruction of the image sequence (switched on in the `reco` option) is capable of radial and Cartesian data processing. It utilizes the simple Fast Fourier transform in the case of Cartesian data, and the Non-uniform Fast Fourier transform in the case of radial data. The number of projections used for image reconstruction in the case of radial acquisition is currently set to 89 based on our experience and might be changed in the main script. The NUFFT reconstruction doesn't utilize any compressed sensing techniques and isn't recommended for sparse sampling. 
 
 
-The output is a single MAT file, suitable for subsequent perfusion analysis in our [PerfLab](http://perflab.cerit-sc.cz/) software. It contains the variables `data1` with precontrast scans, `data2` with dynamic sequence, and `info` with acquisition parameters. 
+The output is a single MAT file, suitable for subsequent perfusion analysis in our [PerfLab](https://perflab.isibrno.cz/) software. It contains the variables `data1` with precontrast scans, `data2` with dynamic sequence, and `info` with acquisition parameters. 
 
